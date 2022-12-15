@@ -1,0 +1,144 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="container">
+        <div style="margin-bottom: 10px" class="clearfix">
+            <a class="btn btn-success" href="/admin/add/" target="_blank">
+                <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+                新建管理员
+            </a>
+
+            <div style="float: right; width: 300px;">
+                <form method="get">
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="q" placeholder="Search for..."
+                               value="{{ search_data }}">
+                        <span class="input-group-btn">
+                      <button class="btn btn-default" type="submit">
+                          <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                      </button>
+                    </span>
+                    </div><!-- /input-group -->
+                </form>
+            </div>
+        </div>
+        <div class="panel panel-default" style="margin-top: 10px">
+            <!-- Default panel contents -->
+            <div class="panel-heading">
+                <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+                管理员列表
+            </div>
+            <div class="panel-body">
+                <p>Some default panel content here. Nulla vitae elit libero, a pharetra augue. Aenean lacinia bibendum
+                    nulla sed consectetur. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis
+                    vestibulum. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+            </div>
+
+            <!-- Table -->
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>用户名</th>
+                    <th>密码</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for obj in queryset %}
+
+                    <tr uid="{{ obj.id }}">
+                        <th>{{ obj.id }}</th>
+                        <td>{{ obj.username }}</td>
+                        <td>******</td>
+                        <td>
+                            <a href="/admin/{{ obj.id }}/reset/">重置密码</a>
+                        </td>
+                        <td>
+                            <a class="btn btn-primary btn-xs" href="/admin/{{ obj.id }}/edit/">edit</a>
+                            {#                            <a class="btn btn-danger btn-xs" href="/admin/{{ obj.id }}/delete/">delete</a>#}
+                            <input uid="{{ obj.id }}" class="btn btn-danger btn-xs btn-delete" type="button" value="delete"></input>
+
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="deleteModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
+         aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">
+                        &times;
+                    </span>
+                </button>
+                <h4>是否确定删除？</h4>
+                <p>
+                    删除后，所有关联的相关数据都会被删除
+                </p>
+                <p style="text-align: right">
+                    <button type="button" class="btn btn-danger" id="btnConfirmDelete">确定</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                </p>
+            </div>
+
+        </div>
+    </div>
+    </div>
+{% endblock %}
+{% block js %}
+    <script type="text/javascript">
+        let DELETE_ID = 0;
+
+        $(function () {
+            bindBtnDeleteEvent();
+            bindBtnConfirmDelete();
+        })
+
+        //点击删除事件
+        function bindBtnDeleteEvent() {
+            $(".btn-delete").click(function (){
+                //新建按钮
+                $("#deleteModal").modal('show');
+
+                //获取uid
+                DELETE_ID = $(this).attr("uid");
+
+            })
+        }
+        
+        function bindBtnConfirmDelete() {
+            $("#btnConfirmDelete").click(function (){
+                $.ajax({
+                    url: "/admin/" + DELETE_ID + "/delete/",
+                    type:"GET",
+                    dataType:"JSON",
+                    success: function (res){
+                        if(res.status){
+                            $("#deleteModal").modal('hide');
+
+                            $(`tr[uid='${DELETE_ID}']`).remove();
+
+
+                            DELETE_ID = 0;
+
+
+                        }else{
+                            alert(res.error);
+                        }
+                    }
+
+                })
+
+
+            })
+        }
+    </script>
+
+{% endblock %}

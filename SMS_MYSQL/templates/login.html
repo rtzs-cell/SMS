@@ -1,0 +1,114 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            background: url({% static "img/login_bgimg.jpg" %}) no-repeat;
+            background-size: 100% 130%;
+        }
+
+        #login_box {
+            width: 20%;
+            height: 400px;
+            background-color: #00000060;
+            margin: auto;
+            margin-top: 10%;
+            text-align: center;
+            border-radius: 10px;
+            padding: 50px 50px;
+        }
+
+        h2 {
+            color: #ffffff90;
+            margin-top: 5%;
+        }
+
+        #input-box {
+            margin-top: 5%;
+        }
+
+        span {
+            color: #fff;
+        }
+
+        input {
+            border: 0;
+            width: 60%;
+            font-size: 15px;
+            color: #fff;
+            background: transparent;
+            border-bottom: 2px solid #fff;
+            padding: 5px 10px;
+            outline: none;
+            margin-top: 10px;
+        }
+
+        button {
+            margin-top: 50px;
+            width: 60%;
+            height: 30px;
+            border-radius: 10px;
+            border: 0;
+            color: #fff;
+            text-align: center;
+            line-height: 30px;
+            font-size: 15px;
+            background-image: linear-gradient(to right, #30cfd0, #330867);
+        }
+
+        #sign_up {
+            margin-top: 45%;
+            margin-left: 60%;
+        }
+
+        a {
+            color: #b94648;
+        }
+    </style>
+</head>
+
+<body>
+<div id="login_box">
+    <h2>学籍管理系统</h2>
+    <form method="post" novalidate>
+        {% csrf_token %}
+        <div class="form-group">
+            {#            <label>用户名</label>#}
+            {{ form.username }}
+            <br>
+            <span style="color: red">{{ form.username.errors.0 }}</span>
+        </div>
+        <div class="form-group">
+            {#            <label>密码</label>#}
+            {{ form.password }}
+            <br>
+            <span style="color: red">{{ form.password.errors.0 }}</span>
+        </div>
+        <div class="form-group">
+            {#            <label for="id_code">图片验证码</label>#}
+            <div class="row">
+                <div class="col-xs-7">
+                    {{ form.code }}
+                    <br>
+                    <span style="color: red">{{ form.code.errors.0 }}</span>
+
+                    <span style="color: red;"></span>
+                </div>
+                <br>
+                <div class="col-xs-5">
+                    <img id="image_code" src="/image/code/">
+                </div>
+            </div>
+        </div>
+        <button type="submit">登录</button>
+        <br>
+    </form>
+</div>
+</body>
+</html>
+

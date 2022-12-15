@@ -7,7 +7,8 @@ class Majors(models.Model):
     """专业表"""
     major_id = models.CharField(verbose_name="专业号", max_length=16, unique=True)
     major_name = models.CharField(verbose_name="专业名", max_length=32, unique=True)
-
+    def __str__(self):
+        return self.major_name
 
 class Classes(models.Model):
     """班级表"""
@@ -27,7 +28,8 @@ class Classes(models.Model):
         (8, "大四下"),
     )
     class_semester = models.SmallIntegerField(verbose_name="学期", choices=semester_choices, default=1)
-
+    def __str__(self):
+        return self.class_id
 
 class Students(models.Model):
     """ 学生表 """
@@ -56,7 +58,6 @@ class Teachers(models.Model):
     """ 教师表 """
     teacher_id = models.CharField(verbose_name="工号", max_length=16, unique=True)
     teacher_name = models.CharField(verbose_name="姓名", max_length=16)
-    teacher_age = models.IntegerField(verbose_name="年龄")
     gender_choices = (
         (1, "男"),
         (2, "女")
@@ -96,10 +97,10 @@ class StudentCourse(models.Model):
     students = models.ForeignKey(verbose_name="学生", to="Students", to_field="student_id", on_delete=models.PROTECT)
     courses = models.ForeignKey(verbose_name="课程", to="Courses", to_field="course_id", on_delete=models.PROTECT)
     resit_choices = (
-        (1, "是"),
-        (0, "否")
+        (1, "否"),
+        (2, "是")
     )
-    resit = models.SmallIntegerField(verbose_name="是否补考", choices=resit_choices)
+    resit = models.SmallIntegerField(verbose_name="是否补考", choices=resit_choices, default=1)
 
     class Meta:
         unique_together = [
@@ -109,12 +110,17 @@ class StudentCourse(models.Model):
 
 class TeacherSchedule(models.Model):
     """教师授课负责表"""
-    teachers = models.ForeignKey(verbose_name="老师", to="Teachers", to_field="teacher_id", on_delete=models.PROTECT)
     classes = models.ForeignKey(verbose_name="班级", to="Classes", to_field="class_id", on_delete=models.PROTECT)
     courses = models.ForeignKey(verbose_name="课程", to="Courses", to_field="course_id", on_delete=models.PROTECT)
+    teachers = models.ForeignKey(verbose_name="老师", to="Teachers", to_field="teacher_id", on_delete=models.PROTECT)
 
     class Meta:
         unique_together = [
-            ('teachers', 'classes')
+            ('classes', 'courses')
         ]
 
+
+class Admin(models.Model):
+    """管理员"""
+    username = models.CharField(verbose_name="用户名", max_length=32)
+    password = models.CharField(verbose_name="密码", max_length=64)

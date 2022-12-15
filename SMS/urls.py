@@ -15,7 +15,49 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from SMS_MYSQL.views import account, admin, student, classes, course, major, teacher
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
+    # path("admin/", admin.site.urls),
+    #管理员
+    path("admin/list/", admin.admin_list),
+    path("admin/add/", admin.admin_add),
+    path("admin/<int:nid>/delete/", admin.admin_delete),
+    path("admin/<int:nid>/edit/", admin.admin_edit),
+    path("admin/<int:nid>/reset/", admin.admin_reset),
+
+    #登录
+    path("login/", account.login),
+    path("logout/", account.logout),
+    path("image/code/", account.image_code),
+
+    # 学生管理
+    path("student/list/", student.student_list),
+    path("student/add/", student.student_add),
+    path("student/<int:nid>/edit/", student.student_edit),
+    path("student/<int:nid>/delete/", student.student_delete),
+
+    # 班级管理
+    path("classes/list/", classes.classes_list),
+    path("classes/add/", classes.classes_add),
+    path("classes/<int:nid>/edit/", classes.classes_edit),
+    path("classes/<int:nid>/delete/", classes.classes_delete),
+
+    # 课程管理
+    path("course/list/", course.course_list),
+    path("course/add/", course.course_add),
+    path("course/<int:nid>/edit/", course.course_edit),
+    path("course/<int:nid>/delete/", course.course_delete),
+
+    # 专业管理
+    path("major/list/", major.major_list),
+    path("major/add/", major.major_add),
+    path("major/<int:nid>/edit/", major.major_edit),
+    path("major/<int:nid>/delete/", major.major_delete),
+
+    # 教师管理
+    path("teacher/list/", teacher.teacher_list),
+    path("teacher/add/", teacher.teacher_add),
+    path("teacher/<int:nid>/edit/", teacher.teacher_edit),
+    path("teacher/<int:nid>/delete/", teacher.teacher_delete),
 ]
