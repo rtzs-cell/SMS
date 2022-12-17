@@ -41,7 +41,7 @@ def student_course_list(request):
     for d in querydict:
         # print(d)
         d['resit'] = StudentCourse.resit_choices[d['resit']][1]
-    print(querydict)
+    # print(querydict)
 
     # 查询结果一摸一样!
     # queryset = models.Students.objects.all()
