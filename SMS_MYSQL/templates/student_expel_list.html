@@ -1,0 +1,45 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="container">
+        <div style="margin-bottom: 10px" class="clearfix">
+
+
+        </div>
+        <div class="panel panel-default" style="margin-top: 10px">
+            <!-- Default panel contents -->
+            <div class="panel-heading">
+                <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+                高危学生信息列表
+            </div>
+            <div class="panel-body">
+                <p>在此页面可以查询将被开除的学生信息</p>
+            </div>
+
+            <!-- Table -->
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>学号</th>
+                    <th>必修课挂科数</th>
+                    <th>必修课挂科总学分</th>
+                    <th>选修课挂科数</th>
+                    <th>选修课挂科总学分</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for obj in queryset %}
+
+                    <tr id="{{ obj.students_id }}">
+                        <td>{{ obj.students_id }}</td>
+                        <td>{{ obj.count_compulsory }}</td>
+                        <td id="scc">{{ obj.sum_compulsory_credit }}</td>
+                        <td>{{ obj.count_option }}</td>
+                        <td id="soc">{{ obj.sum_option_credit }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

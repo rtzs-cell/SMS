@@ -3,9 +3,9 @@
 {% block content %}
     <div class="container">
         <div style="margin-bottom: 10px" class="clearfix">
-            <a class="btn btn-success" href="/student/add/" target="_blank">
+            <a class="btn btn-success" href="/student/course/add/" target="_blank">
                 <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
-                新建学生
+                新建选课信息
             </a>
 
 
@@ -14,25 +14,20 @@
             <!-- Default panel contents -->
             <div class="panel-heading">
                 <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
-                学生列表 --
-                【学号: [{{ search_data.s_id }}]】/【姓名: [{{ search_data.s_name }}]】/【专业: [{{ search_data.s_major }}]】
+                学生选课信息列表
             </div>
             <div class="panel-body">
-                <p>在此页面可以按学号、姓名、专业三种方式增删改查学生基本信息</p>
+                <p>在此页面可以增删改查学生选课基本信息,如：根据学号和课程录入成绩</p>
                 <div>
                 <form method="get" >
                     <div class="input-group" style="display: flex; flex-direction: row; align-content: space-between" >
-                            <div style="width: 30%;display: flex;flex-direction: row;margin-right: 15px">
+                            <div style="width: 45%;display: flex;flex-direction: row;margin-right: 15px">
                                 <label>学号</label>
                                 <input type="text" class="form-control" name="s_id" placeholder="Search for..." value="{{ search_data.s_id }}" >
                             </div>
-                            <div style="width: 30%;display: flex;flex-direction: row;margin-right: 15px">
-                                <label>姓名</label>
-                                <input type="text" class="form-control" name="s_name" placeholder="Search for..." value="{{ search_data.s_name }}" >
-                            </div>
-                            <div style="width: 30%;display: flex;flex-direction: row;margin-right: 15px">
-                                <label>专业</label>
-                                <input type="text" class="form-control" name="s_major" placeholder="Search for..." value="{{ search_data.s_major }}" >
+                            <div style="width: 45%;display: flex;flex-direction: row;margin-right: 15px">
+                                <label>课程</label>
+                                <input type="text" class="form-control" name="c_id" placeholder="Search for..." value="{{ search_data.c_id }}" >
                             </div>
 
                             <span class="input-group-btn">
@@ -51,10 +46,9 @@
                 <tr>
                     <th>ID</th>
                     <th>学号</th>
-                    <th>姓名</th>
-                    <th>性别</th>
-                    <th>出生年月</th>
-                    <th>班号</th>
+                    <th>课程号</th>
+                    <th>是否补考</th>
+                    <th>成绩</th>
                     <th>操作</th>
                 </tr>
                 </thead>
@@ -63,14 +57,13 @@
 
                     <tr>
                         <th>{{ obj.id }}</th>
-                        <td>{{ obj.student_id }}</td>
-                        <td>{{ obj.student_name }}</td>
-                        <td>{{ obj.student_gender }}</td>
-                        <td>{{ obj.student_birthday|date:"Y-m-d" }}</td>
-                        <td>{{ obj.classes_id }}</td>
+                        <td>{{ obj.students_id }}</td>
+                        <td>{{ obj.courses_id }}</td>
+                        <td>{{ obj.resit }}</td>
+                        <td>{{ obj.grade }}</td>
                         <td>
-                            <a class="btn btn-primary btn-xs" href="/student/{{ obj.id }}/edit/">edit</a>
-                            <a class="btn btn-danger btn-xs" href="/student/{{ obj.id }}/delete/">delete</a>
+                            <a class="btn btn-primary btn-xs" href="/student/course/{{ obj.id }}/edit/">edit</a>
+                            <a class="btn btn-danger btn-xs" href="/student/course/{{ obj.id }}/delete/">delete</a>
                         </td>
                     </tr>
                 {% endfor %}

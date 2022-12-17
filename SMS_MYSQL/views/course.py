@@ -24,7 +24,7 @@ def course_list(request):
         data_dict['course_id__contains'] = search_data
 
     # select  from Table order by level desc;
-    queryset = models.Courses.objects.filter(**data_dict)
+    queryset = models.Courses.objects.filter(**data_dict).order_by("course_id")
 
     return render(request, "course_list.html", {"queryset": queryset, "search_data": search_data})
 

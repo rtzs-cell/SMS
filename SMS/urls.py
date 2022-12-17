@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from SMS_MYSQL.views import account, admin, student, classes, course, major, teacher
+from SMS_MYSQL.views import account, admin, student, classes, course, major, teacher, teaching_plan, teaching_duty, student_course, student_extra, student_expel
 
 urlpatterns = [
     # path("admin/", admin.site.urls),
@@ -60,4 +60,29 @@ urlpatterns = [
     path("teacher/add/", teacher.teacher_add),
     path("teacher/<int:nid>/edit/", teacher.teacher_edit),
     path("teacher/<int:nid>/delete/", teacher.teacher_delete),
+
+    # 授课计划管理
+    path("teaching/plan/list/", teaching_plan.teaching_plan_list),
+    path("teaching/plan/add/", teaching_plan.teaching_plan_add),
+    path("teaching/plan/<int:nid>/edit/", teaching_plan.teaching_plan_edit),
+    path("teaching/plan/<int:nid>/delete/", teaching_plan.teaching_plan_delete),
+
+    # 授课职责管理
+    path("teaching/duty/list/", teaching_duty.teaching_duty_list),
+    path("teaching/duty/add/", teaching_duty.teaching_duty_add),
+    path("teaching/duty/<int:nid>/edit/", teaching_duty.teaching_duty_edit),
+    path("teaching/duty/<int:nid>/delete/", teaching_duty.teaching_duty_delete),
+
+    # 选课管理
+    path("student/course/list/", student_course.student_course_list),
+    path("student/course/add/", student_course.student_course_add),
+    path("student/course/<int:nid>/edit/", student_course.student_course_edit),
+    path("student/course/<int:nid>/delete/", student_course.student_course_delete),
+
+    # 学生额外信息查询
+    path("student/extra/list/", student_extra.student_extra_list),
+
+    # 即将开除学生查询
+    path("student/expel/list/", student_expel.student_expel_list),
+
 ]

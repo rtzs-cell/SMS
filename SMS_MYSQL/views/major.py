@@ -16,7 +16,7 @@ def major_list(request):
         data_dict['major_id__contains'] = search_data
 
     # select  from Table order by level desc;
-    queryset = models.Majors.objects.filter(**data_dict)
+    queryset = models.Majors.objects.filter(**data_dict).order_by("major_id")
 
     return render(request, "major_list.html", {"queryset": queryset, "search_data": search_data})
 

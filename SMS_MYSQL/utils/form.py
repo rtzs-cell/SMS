@@ -247,3 +247,55 @@ class TeacherEditModelForm(BootStrapModelForm):
         # pass
         return txt_teacher_id
 
+
+class TeachingPlanModelForm(BootStrapModelForm):
+    class Meta:
+        model = models.TeachingPlan
+        fields = "__all__"
+
+    # 钩子方法 验证
+
+
+class TeachingPlanEditModelForm(BootStrapModelForm):
+    class Meta:
+        model = models.TeachingPlan
+        fields = "__all__"
+
+    # 钩子方法
+
+
+class TeachingDutyModelForm(BootStrapModelForm):
+    class Meta:
+        model = models.TeachingDuty
+        fields = "__all__"
+
+    # 钩子方法 验证
+
+
+class TeachingDutyEditModelForm(BootStrapModelForm):
+    class Meta:
+        model = models.TeachingDuty
+        fields = "__all__"
+
+    # 钩子方法
+
+
+class StudentCourseModelForm(BootStrapModelForm):
+    # def __init__(self, *args, **kwargs):
+    #     super().__init__(*args, **kwargs)
+    #     self.fields["resit"].widget._empty_value = [1] #设置下拉列表默认值
+        #self.fields["resit"].widget.attrs['disabled'] = True
+
+    class Meta:
+        model = models.StudentCourse
+        fields = "__all__"
+        exclude = ["resit"]
+    # 钩子方法 验证
+
+
+class StudentCourseEditModelForm(BootStrapModelForm):
+
+    class Meta:
+        model = models.StudentCourse
+        fields = "__all__"
+        exclude = ["students", 'courses']

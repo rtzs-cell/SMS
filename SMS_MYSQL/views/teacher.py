@@ -16,7 +16,7 @@ def teacher_list(request):
         data_dict['teacher_id__contains'] = search_data
 
     # select  from Table order by level desc;
-    queryset = models.Teachers.objects.filter(**data_dict)
+    queryset = models.Teachers.objects.filter(**data_dict).order_by("teacher_id")
 
     return render(request, "teacher_list.html", {"queryset": queryset, "search_data": search_data})
 

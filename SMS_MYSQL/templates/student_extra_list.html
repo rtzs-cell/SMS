@@ -1,0 +1,102 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="container">
+        <div style="margin-bottom: 10px" class="clearfix">
+
+
+        </div>
+        <div class="panel panel-default" style="margin-top: 10px">
+            <!-- Default panel contents -->
+            <div class="panel-heading">
+                <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+                学生额外信息列表
+            </div>
+            <div class="panel-body">
+                <p>在此页面可以查询学生额外基本信息</p>
+                <div>
+                    <form method="get">
+                        <div class="input-group"
+                             style="display: flex; flex-direction: row; align-content: space-between">
+                            <div style="width: 90%;display: flex;flex-direction: row;margin-right: 15px">
+                                <label>学号</label>
+                                <input type="text" class="form-control" name="s_id" placeholder="Search for..."
+                                       value="{{ search_data.s_id }}">
+                            </div>
+                            <span class="input-group-btn">
+                          <button class="btn btn-default" type="submit">
+                              <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                          </button>
+                        </span>
+                        </div><!-- /input-group -->
+                    </form>
+                </div>
+            </div>
+
+            <!-- Table -->
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>学号</th>
+                    <th>课程号</th>
+                    <th>性质</th>
+                    <th>学期</th>
+                    <th>学分</th>
+                    <th>成绩</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for obj in queryset %}
+
+                    <tr>
+                        <td>{{ obj.students_id }}</td>
+                        <td>{{ obj.courses_id }}</td>
+                        <td>{{ obj.tp_type }}</td>
+                        <td>{{ obj.tp_semester }}</td>
+                        <td>{{ obj.course_credit }}</td>
+                        <td>{{ obj.grade }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="panel panel-default" style="margin-top: 10px">
+            <!-- Default panel contents -->
+            <div class="panel-heading">
+                <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+                【{{ search_data.s_id }}】<br>
+                所有课程平均成绩为:<em><b>{% for obj in aga %}{{ obj.avg_grade_all }}{% endfor %}</b></em><br>
+                必修课平均成绩为:<em><b>{% for obj in agc %}{{ obj.avg_grade_compulsory }}{% endfor %}</b></em>
+            </div>
+
+        </div>
+        <div class="panel panel-default" style="margin-top: 10px">
+            <!-- Default panel contents -->
+            <div class="panel-heading">
+                <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+                为【{{ search_data.s_id }}】授课的教师记录：
+            </div>
+            <div class="panel-body">
+                <!-- Table -->
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>工号</th>
+                        <th>教师姓名</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for obj in qst %}
+
+                        <tr>
+                            <td>{{ obj.teacher_id }}</td>
+                            <td>{{ obj.teacher_name }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

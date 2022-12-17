@@ -31,11 +31,24 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li ><a href="/student/list/">学生管理 </a></li>
-                <li ><a href="/major/list/">专业管理 </a></li>
-                <li ><a href="/classes/list/">班级管理 </a></li>
-                <li ><a href="/course/list/">课程管理 </a></li>
-                <li ><a href="/teacher/list/">教师管理 </a></li>
+                <li role="presentation" class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+                       aria-expanded="false">
+                        管理功能 <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/student/list/">学生管理 </a></li>
+                        <li><a href="/student/course/list/">选课管理 </a></li>
+                        <li><a href="/major/list/">专业管理 </a></li>
+                        <li><a href="/classes/list/">班级管理 </a></li>
+                        <li><a href="/course/list/">课程管理 </a></li>
+                        <li><a href="/teacher/list/">教师管理 </a></li>
+                        <li><a href="/teaching/plan/list/">教学计划管理 </a></li>
+                        <li><a href="/teaching/duty/list/">授课职责管理 </a></li>
+                    </ul>
+                </li>
+                <li><a href="/student/extra/list/">查询学生额外信息 </a></li>
+                <li><a href="/student/expel/list/">查询高危学生信息 </a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
@@ -54,7 +67,7 @@
     </div><!-- /.container-fluid -->
 </nav>
 <div>
-        {% block content %}{% endblock %}
+    {% block content %}{% endblock %}
 </div>
 
 <script src="{% static '/js/jquery-3.6.0.min.js' %}"></script>

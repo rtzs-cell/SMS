@@ -1,0 +1,66 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="container">
+        <div style="margin-bottom: 10px" class="clearfix">
+            <a class="btn btn-success" href="/teaching/plan/add/" target="_blank">
+                <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+                新建教学计划
+            </a>
+
+            <div style="float: right; width: 300px;">
+                <form method="get">
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="q" placeholder="Search for..." value="{{ search_data }}">
+                        <span class="input-group-btn">
+                      <button class="btn btn-default" type="submit">
+                          <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                      </button>
+                    </span>
+                    </div><!-- /input-group -->
+                </form>
+            </div>
+        </div>
+        <div class="panel panel-default" style="margin-top: 10px">
+            <!-- Default panel contents -->
+            <div class="panel-heading">
+                <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+                教学计划列表
+            </div>
+            <div class="panel-body">
+                <p>在此页面可以增删改查教学计划基本信息</p>
+            </div>
+
+            <!-- Table -->
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>专业</th>
+                    <th>课程</th>
+                    <th>性质</th>
+                    <th>学期</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for obj in queryset %}
+
+                    <tr>
+                        <th>{{ obj.id }}</th>
+                        <td>{{ obj.majors.major_name }}</td>
+                        <td>{{ obj.courses.course_name }}</td>
+                        <td>{{ obj.get_tp_type_display }}</td>
+                        <td>{{ obj.get_tp_semester_display }}</td>
+                        <td>
+                            <a class="btn btn-primary btn-xs" href="/teaching/plan/{{ obj.id }}/edit/">edit</a>
+                            <a class="btn btn-danger btn-xs" href="/teaching/plan/{{ obj.id }}/delete/">delete</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+{% endblock %}
