@@ -4,8 +4,11 @@ from django import forms
 from django.core.validators import ValidationError
 
 from SMS_MYSQL import models
+from SMS_MYSQL.utils import page
 from SMS_MYSQL.utils.bootstrap import BootStrapModelForm
 from SMS_MYSQL.utils.encrypt import md5
+
+
 def admin_list(request):
     """管理员列表"""
 
@@ -17,7 +20,19 @@ def admin_list(request):
 
     #根据搜索条件去数据库获取
     queryset = models.Admin.objects.filter(**data_dict)
-    return render(request, "admin_list.html", {'queryset': queryset})
+
+    ###############    分页组件固定用法     #############
+    current_page = request.GET.get('page')
+    page_object = page.Pagination(current_page=current_page,
+                                  all_count=queryset.count(),
+                                  base_url=request.path_info,
+                                  query_params=request.GET,
+                                  per_page=10,
+                                  )
+    queryset = models.Admin.objects.all()[page_object.start:page_object.end]
+    page_html = page_object.page_html()
+    # 'page_html': page_html
+    return render(request, "admin_list.html", {'queryset': queryset, 'page_html': page_html})
 
 
 class AdminModelForm(BootStrapModelForm):

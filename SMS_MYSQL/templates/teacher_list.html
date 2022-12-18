@@ -3,7 +3,7 @@
 {% block content %}
     <div class="container">
         <div style="margin-bottom: 10px" class="clearfix">
-            <a class="btn btn-success" href="/teacher/add/" target="_blank">
+            <a class="btn btn-success" href="/teacher/add/" target="_self">
                 <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
                 新建教师
             </a>
@@ -35,7 +35,6 @@
             <table class="table table-bordered">
                 <thead>
                 <tr>
-                    <th>ID</th>
                     <th>工号</th>
                     <th>姓名</th>
                     <th>性别</th>
@@ -46,7 +45,6 @@
                 {% for obj in queryset %}
 
                     <tr>
-                        <th>{{ obj.id }}</th>
                         <td>{{ obj.teacher_id }}</td>
                         <td>{{ obj.teacher_name }}</td>
                         <td>{{ obj.get_teacher_gender_display }}</td>

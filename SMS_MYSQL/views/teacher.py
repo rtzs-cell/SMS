@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 
 from SMS_MYSQL import models
+from SMS_MYSQL.utils import page
 from SMS_MYSQL.utils.bootstrap import BootStrapModelForm
 from SMS_MYSQL.utils.form import TeacherEditModelForm, TeacherModelForm
 # Create your views here.
@@ -18,7 +19,18 @@ def teacher_list(request):
     # select  from Table order by level desc;
     queryset = models.Teachers.objects.filter(**data_dict).order_by("teacher_id")
 
-    return render(request, "teacher_list.html", {"queryset": queryset, "search_data": search_data})
+    # 分页
+    current_page = request.GET.get('page')
+    page_object = page.Pagination(current_page=current_page,
+                                  all_count=queryset.count(),
+                                  base_url=request.path_info,
+                                  query_params=request.GET,
+                                  per_page=10,
+                                  )
+    page_html = page_object.page_html()
+    # "queryset": queryset[page_object.start:page_object.end], 'page_html': page_html,
+    return render(request, "teacher_list.html", {"queryset": queryset[page_object.start:page_object.end], 'page_html': page_html,
+ "search_data": search_data})
 
 
 def teacher_add(request):

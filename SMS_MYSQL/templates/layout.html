@@ -69,6 +69,13 @@
 <div>
     {% block content %}{% endblock %}
 </div>
+<div id="page" style="width: 100%;height: 100px">
+    <nav aria-label="..." style="width: 65%;margin: auto auto">
+        <ul class="pagination">
+            {{ page_html }}
+        </ul>
+    </nav>
+</div>
 
 <script src="{% static '/js/jquery-3.6.0.min.js' %}"></script>
 <script src="{% static '/plugins/bootstrap-3.4.1-dist/js/bootstrap.min.js' %}"></script>

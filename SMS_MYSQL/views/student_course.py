@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 
 from SMS_MYSQL import models
+from SMS_MYSQL.utils import page
 from SMS_MYSQL.utils.bootstrap import BootStrapModelForm
 from SMS_MYSQL.utils.form import StudentCourseEditModelForm, StudentCourseModelForm
 from SMS_MYSQL.utils.raw import custom_sql_get_dict
@@ -46,7 +47,18 @@ def student_course_list(request):
     # 查询结果一摸一样!
     # queryset = models.Students.objects.all()
     # print(queryset.values())
-    return render(request, "student_course_list.html", {"queryset": querydict, "search_data": search_data})
+        ###############    分页组件固定用法     #############
+        current_page = request.GET.get('page')
+        page_object = page.Pagination(current_page=current_page,
+                                      all_count=len(querydict),
+                                      base_url=request.path_info,
+                                      query_params=request.GET,
+                                      per_page=10,
+                                      )
+        page_html = page_object.page_html()
+        # 'page_html': page_html
+        # [page_object.start:page_object.end]
+    return render(request, "student_course_list.html", {"queryset": querydict[page_object.start:page_object.end], "search_data": search_data, 'page_html': page_html})
 
 
 

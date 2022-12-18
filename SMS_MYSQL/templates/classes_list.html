@@ -3,7 +3,7 @@
 {% block content %}
     <div class="container">
         <div style="margin-bottom: 10px" class="clearfix">
-            <a class="btn btn-success" href="/classes/add/" target="_blank">
+            <a class="btn btn-success" href="/classes/add/" target="_self">
                 <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
                 新建班级
             </a>
@@ -35,7 +35,6 @@
             <table class="table table-bordered">
                 <thead>
                 <tr>
-                    <th>ID</th>
                     <th>班号</th>
                     <th>专业名</th>
                     <th>学期</th>
@@ -46,7 +45,6 @@
                 {% for obj in queryset %}
 
                     <tr>
-                        <th>{{ obj.id }}</th>
                         <td>{{ obj.class_id }}</td>
                         <td>{{ obj.majors.major_name }}</td>
                         <td>{{ obj.get_class_semester_display }}</td>

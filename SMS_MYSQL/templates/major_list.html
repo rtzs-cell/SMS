@@ -3,7 +3,7 @@
 {% block content %}
     <div class="container">
         <div style="margin-bottom: 10px" class="clearfix">
-            <a class="btn btn-success" href="/major/add/" target="_blank">
+            <a class="btn btn-success" href="/major/add/" target="_self">
                 <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
                 新建专业
             </a>
@@ -35,7 +35,6 @@
             <table class="table table-bordered">
                 <thead>
                 <tr>
-                    <th>ID</th>
                     <th>专业号</th>
                     <th>专业名</th>
                     <th>操作</th>
@@ -45,7 +44,6 @@
                 {% for obj in queryset %}
 
                     <tr>
-                        <th>{{ obj.id }}</th>
                         <td>{{ obj.major_id }}</td>
                         <td>{{ obj.major_name }}</td>
                         <td>

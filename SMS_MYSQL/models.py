@@ -53,7 +53,7 @@ class Students(models.Model):
 class Courses(models.Model):
     course_id = models.CharField(verbose_name="课程号", max_length=16, unique=True)
     course_name = models.CharField(verbose_name="课程名", max_length=32)
-    course_credit = models.DecimalField(verbose_name="学分", max_digits=2, decimal_places=1, default=0)
+    course_credit = models.DecimalField(verbose_name="学分", max_digits=3, decimal_places=1, default=0)
 
     def __str__(self):
         return self.course_name
