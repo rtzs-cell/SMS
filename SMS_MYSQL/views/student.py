@@ -51,8 +51,10 @@ def student_list(request):
     if s_major:
         sql_cmd = sql_cmd + " and C.major_name = '%s' " % s_major
 
-    querydict = custom_sql_get_dict(sql_cmd)
+    sql_cmd = sql_cmd + " order by student_id "
     # print(sql_cmd)
+    querydict = custom_sql_get_dict(sql_cmd)
+
 
     for d in querydict:
         #print(d)
@@ -76,7 +78,6 @@ def student_list(request):
         page_html = page_object.page_html()
         # 'page_html': page_html
     return render(request, "student_list.html", {"queryset": querydict[page_object.start:page_object.end], "search_data": search_data, 'page_html': page_html})
-
 
 # from django.core.validators import RegexValidator
 # from django.core.exceptions import ValidationError
@@ -107,6 +108,7 @@ def student_list(request):
 #         # pass
 #         return txt_mobile
 
+
 def student_add(request):
     title = "添加学生信息"
     if request.method == "GET":
@@ -115,6 +117,10 @@ def student_add(request):
 
     #POST收到
     form = StudentModelForm(data=request.POST)
+
+    # insert into
+    # sms_mysql_students(id, student_id, student_name, student_gender, student_birthday, classes_id)
+    # values('', %s, %s, %d, %s, %s)
 
     if form.is_valid():
         form.save()

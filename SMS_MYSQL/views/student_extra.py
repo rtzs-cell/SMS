@@ -61,8 +61,9 @@ def student_extra_list(request):
                     from sms_mysql_studentcourse A, sms_mysql_courses B, ( %s ) C \
                     where A.students_id='%s' and A.courses_id = B.course_id and A.courses_id=C.courses_id and C.tp_type=1 and grade is not NULL " % (
     ST2, s_id)
+    # print(ST5)
 
-    #查询学生对应授课教师
+    # 查询学生对应授课教师
 
     # 查出学号所对应的班级
     ST6 = "select classes_id \
@@ -80,7 +81,7 @@ def student_extra_list(request):
                 where C.teacher_id=E.teachers_id and E.courses_id = D.courses_id and D.students_id='%s' " % (ST7, s_id)
 
 
-    #print(ST3)
+    # print(ST8)
     querydict = {}
     querydict_all_avg_grade = {}
     querydict_compulsory_avg_grade ={}

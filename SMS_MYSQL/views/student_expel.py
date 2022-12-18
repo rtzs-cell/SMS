@@ -52,7 +52,7 @@ def student_expel_list(request):
                     where K.students_id=L.students_id and (K.sum_compulsory_credit>=7 or L.sum_option_credit>=12)" % (ST3, ST4)
 
 
-    #print(ST3)
+    # print(ST5)
     querydict = {}
     querydict = custom_sql_get_dict(ST5)
     #print(querydict)

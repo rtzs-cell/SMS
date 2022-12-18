@@ -61,7 +61,6 @@ def student_course_list(request):
     return render(request, "student_course_list.html", {"queryset": querydict[page_object.start:page_object.end], "search_data": search_data, 'page_html': page_html})
 
 
-
 def student_course_add(request):
     title = "添加选课信息"
     if request.method == "GET":
@@ -89,7 +88,7 @@ def student_course_edit(request, nid):
         return render(request, 'change.html', {"form": form, "title": title})
 
     # POST
-
+    #update
     form = StudentCourseEditModelForm(data=request.POST, instance=row_object)
     if form.is_valid():
         form.save()
